@@ -28,12 +28,14 @@ func modifyuser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 func deleteuser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	uid := ps.ByName("uid")
+
 	fmt.Fprintf(w, "you are delete user %s", uid)
 }
 
 func adduser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// uid := r.FormValue("uid")
 	uid := ps.ByName("uid")
+	//uid := json.NewDecoder(r.Body)
 	fmt.Fprintf(w, "you are add user %s", uid)
 }
 
@@ -43,7 +45,8 @@ func main() {
 	router.GET("/hello/:name", Hello)
 
 	router.GET("/user/:uid", getuser)
-	router.POST("/adduser/:uid", adduser)
+	//router.POST("/adduser/:uid", adduser)
+	router.POST("/adduser/", adduser)
 	router.DELETE("/deluser/:uid", deleteuser)
 	router.PUT("/moduser/:uid", modifyuser)
 
