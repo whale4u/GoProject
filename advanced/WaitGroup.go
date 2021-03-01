@@ -14,10 +14,10 @@ func process(i int, wg *sync.WaitGroup) {
 }
 
 func main() {
-	no := 3
+	num := 3
 	var wg sync.WaitGroup
 	// 3 个并发执行的 Go 协程（由 Go 主协程生成）
-	for i := 0; i < no; i++ {
+	for i := 0; i < num; i++ {
 		wg.Add(i)
 		go process(i, &wg)
 	}
