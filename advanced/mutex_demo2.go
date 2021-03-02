@@ -9,6 +9,7 @@ var x = 0
 
 func increment(wg *sync.WaitGroup, m *sync.Mutex) {
 	m.Lock()
+	// Lock 和 Unlock之间不存在竞争条件。
 	x += 1
 	m.Unlock()
 	wg.Done()
