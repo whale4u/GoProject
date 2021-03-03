@@ -1,6 +1,4 @@
-package employee
-
-// 定义该文件属于employee包
+package employee // 定义该文件属于employee包
 
 import (
 	"fmt"
@@ -14,7 +12,7 @@ type Employee struct {
 	LeavesTaken int
 }
 
-//
+// 将数据和操作数据的方法绑定
 func (e Employee) LeavesRemaining() {
 	fmt.Printf("%s %s has %d leaves remaining", e.FirstName, e.LastName, (e.TotalLeaves - e.LeavesTaken))
 }
