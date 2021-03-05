@@ -38,6 +38,7 @@ func (tm TimeAndMaterial) source() string {
 	return tm.projectName
 }
 
+//如果在该组织以后增加了新的收入来源，calculateNetIncome 无需修改一行代码，就可以正确地计算总收入了。
 func calculateNetIncome(ic []Income) {
 	var netincome int = 0
 	for _, income := range ic {
