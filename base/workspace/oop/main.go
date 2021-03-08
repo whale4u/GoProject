@@ -1,6 +1,6 @@
 package main
 
-import "oop/employee"
+import "./employee"
 
 func main() {
 	e := employee.Employee{

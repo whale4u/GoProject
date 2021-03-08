@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"net/http"
@@ -13,7 +14,7 @@ var db *sql.DB
 
 type Article struct {
 	Title   string `title, required`
-	Content string `string, required`
+	Content string `content, required`
 	Tag     string `tag, required`
 }
 
@@ -54,8 +55,8 @@ func insertMultiRow(note Note) {
 			//fmt.Printf("Field %d: %v\n", i, value.Field(i))
 			list[i] = value.Field(i).String()
 		}
-		//fmt.Println(list)
-		_, err := stmt.Exec(list[0], list[1], list[2])
+		fmt.Println(note.Params)
+		//_, err := stmt.Exec(list[0], list[1], list[2])
 		checkErr(err)
 	}
 
@@ -86,14 +87,14 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"status": "200"})
 
 		//遍历切片中的结构体元素
-		//for _, v := range note.Params {
-		//	value := reflect.ValueOf(v)
-		//	for i := 0; i < value.NumField(); i++ {
-		//			fmt.Printf("Field %d: %v\n", i, value.Field(i))
-		//		}
-		//	}
+		for _, v := range note.Params {
+			value := reflect.ValueOf(v)
+			for i := 0; i < value.NumField(); i++ {
+				fmt.Printf("Field %d: %v\n", i, value.Field(i))
+			}
+		}
 
-		insertMultiRow(note)
+		//insertMultiRow(note)
 	})
-	r.Run(":8080")
+	r.Run(":8888")
 }
