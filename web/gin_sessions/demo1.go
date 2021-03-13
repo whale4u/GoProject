@@ -13,6 +13,7 @@ var store = sessions.NewCookieStore([]byte("make-a-difference"))
 func main() {
 	http.HandleFunc("/save", SaveSession)
 	http.HandleFunc("/get", GetSession)
+	http.HandleFunc("/del", DelSession)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		fmt.Println("HTTP Server failed, err: ", err)
@@ -32,8 +33,11 @@ func SaveSession(w http.ResponseWriter, r *http.Request) {
 	session.Values["foo"] = "bar"
 	session.Values[42] = 43
 
-	//
-	session.Save(r, w)
+	err = session.Save(r, w)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	fmt.Println(session.Values)
 }
@@ -45,11 +49,17 @@ func GetSession(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	foo := session.Values["foo"]
-	// 为什么输出nil ？？？？
+	// 需要在浏览器访问
 	fmt.Println(foo)
 }
 
-// 删除
-// 将session的最大存储时间设置为小于零的数即为删除
-//session.Options.MaxAge = -1
-//session.Save(r, w)
+func DelSession(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "session-name")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// 将session的最大存储时间设置为小于零的数即为删除
+	session.Options.MaxAge = -1
+	session.Save(r, w)
+}
