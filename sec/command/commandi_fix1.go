@@ -31,13 +31,12 @@ func commandInjectionPrepareHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Fprint(w, string(out))
 	} else {
+		w.WriteHeader(http.StatusBadRequest)
 		fmt.Println("IP格式错误！")
-
 	}
-
 }
 
 func main() {
 	http.HandleFunc("/command", commandInjectionPrepareHandler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":2333", nil)
 }
