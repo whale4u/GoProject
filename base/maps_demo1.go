@@ -27,4 +27,13 @@ func main() {
 	fmt.Println("map before deletion", girlSalary)
 	delete(girlSalary, "susan")
 	fmt.Println("map after deletion", girlSalary)
+
+	//判断map中是否包含某个key
+	val, ok := girlSalary["susan"]
+	if ok {
+		fmt.Println("susan in girlSalary map")
+		fmt.Println("Her salary is: ", val)
+	} else {
+		fmt.Println("susan is not in girlSalary map")
+	}
 }
