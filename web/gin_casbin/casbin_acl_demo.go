@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	// 要使用自己定义的数据库rbac_db,最后的true很重要.默认为false,使用缺省的数据库名casbin,不存在则创建
+	// 要使用自己定义的数据库rbac_db,最后的true很重要.默认为false,使用缺省的数据库名casbin（需要自己创建数据库）
 	a := xormadapter.NewAdapter("mysql", "root:@tcp(127.0.0.1:3306)/goblog?charset=utf8", true)
 	//if err != nil {
 	//	log.Printf("连接数据库错误: %v", err)
