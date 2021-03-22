@@ -6,10 +6,6 @@ import (
 	"os/exec"
 )
 
-//注意：不能用&和&&，否则取IP时会取不到后面拼接的参数!!!
-//payload1：curl http://127.0.0.1:2333/commandi\?ip\=1\|whoami
-//payload2：curl http://127.0.0.1:2333/commandi\?ip\=1\|\|whoami
-
 func commandInjectionPrepareHandler(w http.ResponseWriter, r *http.Request) {
 	// vars is map type
 	vars := r.URL.Query()
@@ -19,10 +15,12 @@ func commandInjectionPrepareHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ip := tmpKey[0]
-
-	cmdStr := "ping -c 3 " + ip
 	fmt.Println(ip)
-	cmd := exec.Command("bash", "-c", cmdStr)
+	//cmdStr := "ping -c 3 " + ip
+	//cmd := exec.Command("bash", "-c", cmdStr)
+	//使用参数列表
+	cmdArgs := []string{"-c", "3", ip}
+	cmd := exec.Command("ping", cmdArgs...)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Fprint(w, err)
@@ -31,6 +29,6 @@ func commandInjectionPrepareHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/commandi", commandInjectionPrepareHandler)
+	http.HandleFunc("/commandi_fix2", commandInjectionPrepareHandler)
 	http.ListenAndServe(":2333", nil)
 }
