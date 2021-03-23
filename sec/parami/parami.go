@@ -8,13 +8,16 @@ import (
 )
 
 func paramInjectionPrepareHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Body1: ", r.Body)
 	err := r.ParseForm()
 	if err != nil {
 		fmt.Fprint(w, "parse form error")
 	}
 
+	fmt.Println("Body2: ", r.Body)
 	argMap := make(map[string]interface{})
 	json.NewDecoder(r.Body).Decode(&argMap)
+	fmt.Println("argMap: ", argMap)
 
 	command := "curl"
 	cmdArgs := []string{"-v", "--url", "http://www.baidu.com"}
@@ -22,6 +25,7 @@ func paramInjectionPrepareHandler(w http.ResponseWriter, r *http.Request) {
 	for argKey, argValue := range argMap {
 		arg := "--" + argKey
 		cmdArgs = append(cmdArgs, arg, argValue.(string))
+		fmt.Println(argKey, "-->", argValue)
 	}
 
 	cmd := exec.Command(command, cmdArgs...)
@@ -36,6 +40,7 @@ func paramInjectionPrepareHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/param/", paramInjectionPrepareHandler)
-	http.ListenAndServe("2333", nil)
+	http.HandleFunc("/parami/", paramInjectionPrepareHandler)
+	// 端口签名需要有冒号！
+	http.ListenAndServe(":2333", nil)
 }
