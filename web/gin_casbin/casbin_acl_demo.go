@@ -49,9 +49,10 @@ func main() {
 		list := e.GetPolicy()
 		for _, vlist := range list {
 			for _, v := range vlist {
-				fmt.Printf("value: %s, ", v)
+				fmt.Printf("value: %s ", v)
 			}
 		}
+		fmt.Println()
 	})
 	//使用自定义拦截器中间件
 	r.Use(Authorize(e))
