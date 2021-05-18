@@ -7,7 +7,7 @@ func init() {
 }
 
 func init() {
-	fmt.Println("init2:", a)
+	fmt.Println("init2:", b)
 }
 
 var a = 10
