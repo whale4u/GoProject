@@ -17,7 +17,7 @@ func createQuery(q interface{}) {
 	k := t.Kind()
 	//返回 reflect.Value 具体值
 	v := reflect.ValueOf(q)
-	fmt.Println("Type ", t)
+	fmt.Println("Type ", t.String())
 	fmt.Println("Kind ", k)
 	fmt.Println("Value ", v)
 
