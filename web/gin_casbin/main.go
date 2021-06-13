@@ -10,18 +10,21 @@ import (
 
 func main() {
 	// 要使用自己定义的数据库rbac_db,最后的true很重要.默认为false,使用缺省的数据库名casbin（需要自己创建数据库）
-	a := xormadapter.NewAdapter("mysql", "root:@tcp(127.0.0.1:3306)/goblog?charset=utf8", true)
+	a := xormadapter.NewAdapter("mysql", "root:@tcp(127.0.0.1:3306)/casbin?charset=utf8", true)
 	//if err != nil {
 	//	log.Printf("连接数据库错误: %v", err)
 	//	return
 	//}
-	e := casbin.NewEnforcer("/Users/whale4u/Code/GoProject/web/gin_casbin/rbac_models.conf", a)
+	e := casbin.NewEnforcer("rbac_models.conf", a)
 	//if err != nil {
 	//	log.Printf("初始化casbin错误: %v", err)
 	//	return
 	//}
 	//从DB加载策略
 	e.LoadPolicy()
+
+	policy := e.GetPolicy()
+	fmt.Println(policy)
 
 	//获取router路由对象
 	r := gin.New()
@@ -69,13 +72,16 @@ func Authorize(e *casbin.Enforcer) gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 
-		//获取请求的URI
-		obj := c.Request.URL.RequestURI()
+		//获取请求的URI,必须要转化为字符串，否则enforce会提示不通过！
+		obj := c.Request.URL.String()
+		//obj := "/api/v1/hello"
 		//获取请求方法
 		act := c.Request.Method
+		//act := "GET"
 		//获取用户的角色
 		sub := "admin"
 
+		//fmt.Println("===", sub, obj.String(), act)
 		//判断策略中是否存在
 		if ok := e.Enforce(sub, obj, act); ok {
 			fmt.Println("恭喜您,权限验证通过")
