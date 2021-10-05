@@ -25,4 +25,5 @@ func main() {
 
 	//%v值的默认格式表示。当输出结构体时，扩展标志（%+v）会添加字段名
 	fmt.Printf("%+v", animals)
+	//fmt.Printf("%+v", animals)
 }

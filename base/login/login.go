@@ -9,7 +9,8 @@ import (
 )
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm() // 解析 url 传递的参数，对于 POST 则解析响应包的主体（request body）
+	r.ParseForm()
+	// 解析 url 传递的参数，对于 POST 则解析响应包的主体（request body）
 	// 注意:如果没有调用 ParseForm 方法，下面无法获取表单的数据
 	fmt.Println(r.Form) // 这些信息是输出到服务器端的打印信息
 	fmt.Println("path", r.URL.Path)
@@ -26,7 +27,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method) // 获取请求的方法
 	if r.Method == "GET" {
 		//这里模板路径需要写成绝对路径，否则运行会报错
-		t, _ := template.ParseFiles("/Users/whale4u/Code/GoProject/advanced/login.gtpl")
+		t, _ := template.ParseFiles("/Users/whale4u/Code/GoProject/base/login/login.html")
 		log.Println(t.Execute(w, nil))
 	} else {
 		err := r.ParseForm() // 解析 url 传递的参数，对于 POST 则解析响应包的主体（request body）
@@ -43,7 +44,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", sayhelloName)       // 设置访问的路由
 	http.HandleFunc("/login", login)         // 设置访问的路由
-	err := http.ListenAndServe(":9090", nil) // 设置监听的端口
+	err := http.ListenAndServe(":8080", nil) // 设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
