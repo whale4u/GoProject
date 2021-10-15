@@ -12,8 +12,8 @@ require (
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-xorm/xorm v0.7.9 // indirect
-	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/gorilla/sessions v1.2.1
+	github.com/influxdata/influxdb v1.9.5
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/kr/pretty v0.2.1 // indirect
@@ -25,8 +25,7 @@ require (
 	github.com/ugorji/go v1.2.4 // indirect
 	go.mongodb.org/mongo-driver v1.5.2
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
-	golang.org/x/net v0.0.0-20200202094626-16171245cfb2
-	golang.org/x/sys v0.0.0-20210308170721-88b6017d0656 // indirect
-	google.golang.org/protobuf v1.25.0 // indirect
+	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
+	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
