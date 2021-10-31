@@ -18,4 +18,10 @@ func main() {
 	//切片的零值是 nil。
 	var s []int = primes[1:4]
 	fmt.Println(s)
+
+	//输出
+	//Hello World
+	//[Hello World]
+	//[2 3 5 7 11 13]
+	//[3 5 7]
 }

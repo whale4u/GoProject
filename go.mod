@@ -18,12 +18,11 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/lib/pq v1.10.0 // indirect
-	github.com/mvdan/xurls v1.1.0 // indirect
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/ugorji/go v1.2.4 // indirect
 	go.mongodb.org/mongo-driver v1.5.2
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	mvdan.cc/xurls v1.1.0
+	mvdan.cc/xurls/v2 v2.3.0
 )
